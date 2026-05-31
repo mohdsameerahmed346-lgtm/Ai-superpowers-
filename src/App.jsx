@@ -1,41 +1,7 @@
-import React, { useState } from "react";
+import { useEffect, useState } from 'react'
 import { supabase } from './lib/supabase'
 import LoginButton from './components/LoginButton'
-function App() {
-  const [user, setUser] = useState(null)
 
-  useEffect(() => {
-    // Get current user
-    supabase.auth.getUser().then(({ data }) => {
-      setUser(data.user)
-    })
-
-    // Listen for login/logout changes
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null)
-    })
-
-    return () => subscription.unsubscribe()
-  }, [])
-
-  return (
-    <div className="min-h-screen flex items-center justify-center">
-      {user ? (
-        <div className="text-center">
-          <h1 className="text-2xl font-bold">
-            Welcome {user.email}
-          </h1>
-        </div>
-      ) : (
-        <LoginButton />
-      )}
-    </div>
-  )
-}
-
-export default App
 const LESSONS = [
   { id:1, cat:"Creator", emoji:"🎬", title:"Viral YouTube Hooks", pro:false, xp:10,
     insight:"Strong hooks create curiosity in the first 3 seconds.",
@@ -545,7 +511,21 @@ export default function App(){
   const [catF,setCatF]=useState("All");
   const [paywall,setPaywall]=useState(false);
   const [showHist,setShowHist]=useState(false);
+  const [user,setUser]=useState(null);
+  useEffect(() => {
+  supabase.auth.getUser().then(({ data }) => {
+    setUser(data.user)
+  })
 
+  const {
+    data: { subscription },
+  } = supabase.auth.onAuthStateChange((_event, session) => {
+    setUser(session?.user ?? null)
+  })
+
+  return () => subscription.unsubscribe()
+}, [])
+  
   const dayIdx=new Date().getDate()%CHALLENGES.length;
   const cLid=CHALLENGES[dayIdx];
   const cLesson=LESSONS.find(l=>l.id===cLid);
@@ -556,7 +536,7 @@ export default function App(){
   const open=(l,ch)=>{setLesson(l);setIsChallenge(!!ch);};
   const reuse=item=>{const l=LESSONS.find(x=>x.id===item.lid);if(l){setLesson(l);setIsChallenge(false);setShowHist(false);}};
 
-  if(!store.user) return <AuthScreen onAuth={handleAuth}/>;
+  if(!user) return <LoginButton />;
   if(showHist) return <HistoryScreen hist={store.hist} onBack={()=>setShowHist(false)} onReuse={reuse} delOut={store.delOut}/>;
   if(lesson) return (
     <>
