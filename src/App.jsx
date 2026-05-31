@@ -1,6 +1,41 @@
 import React, { useState } from "react";
+import { supabase } from './lib/supabase'
 import LoginButton from './components/LoginButton'
+function App() {
+  const [user, setUser] = useState(null)
 
+  useEffect(() => {
+    // Get current user
+    supabase.auth.getUser().then(({ data }) => {
+      setUser(data.user)
+    })
+
+    // Listen for login/logout changes
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
+    })
+
+    return () => subscription.unsubscribe()
+  }, [])
+
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      {user ? (
+        <div className="text-center">
+          <h1 className="text-2xl font-bold">
+            Welcome {user.email}
+          </h1>
+        </div>
+      ) : (
+        <LoginButton />
+      )}
+    </div>
+  )
+}
+
+export default App
 const LESSONS = [
   { id:1, cat:"Creator", emoji:"🎬", title:"Viral YouTube Hooks", pro:false, xp:10,
     insight:"Strong hooks create curiosity in the first 3 seconds.",
