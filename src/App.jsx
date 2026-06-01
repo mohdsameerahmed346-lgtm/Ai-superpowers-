@@ -149,14 +149,158 @@ const COLORS = {
 };
 const CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-@keyframes popIn{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
-@keyframes glow{0%,100%{box-shadow:0 0 20px rgba(99,102,241,.35)}50%{box-shadow:0 0 40px rgba(99,102,241,.7)}}
-@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-*{-webkit-tap-highlight-color:transparent;box-sizing:border-box}
-::-webkit-scrollbar{display:none}
-body,input,textarea,button{font-family:'Plus Jakarta Sans',sans-serif}
+
+@keyframes bounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-7px)}
+}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(14px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes popIn{
+  from{opacity:0;transform:scale(.88)}
+  to{opacity:1;transform:scale(1)}
+}
+
+@keyframes glow{
+  0%,100%{box-shadow:0 0 20px rgba(99,102,241,.35)}
+  50%{box-shadow:0 0 40px rgba(99,102,241,.7)}
+}
+
+@keyframes slideUp{
+  from{transform:translateY(100%)}
+  to{transform:translateY(0)}
+}
+
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,body,#root{
+  margin:0;
+  padding:0;
+  width:100%;
+  min-height:100%;
+  overflow-x:hidden;
+  background:#f7f7fc;
+}
+
+body,input,textarea,button{
+  font-family:'Plus Jakarta Sans',sans-serif;
+}
+
+::-webkit-scrollbar{
+  display:none;
+}
+
+/* APP LAYOUT */
+
+.app-shell{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  padding:0;
+}
+
+.app-container{
+  width:100%;
+  max-width:1200px;
+  min-height:100vh;
+  background:#f7f7fc;
+}
+
+/* AUTH */
+
+.auth-page{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  background:linear-gradient(160deg,#0f0c29,#302b63,#24243e);
+}
+
+.auth-card{
+  width:100%;
+  max-width:420px;
+  background:white;
+  padding:32px;
+  border-radius:24px;
+  box-shadow:0 10px 40px rgba(0,0,0,.2);
+}
+
+.logo{
+  margin:0;
+  font-size:34px;
+  text-align:center;
+  color:#111827;
+}
+
+.subtitle{
+  text-align:center;
+  color:#6b7280;
+  margin-bottom:28px;
+}
+
+.auth-input{
+  width:100%;
+  padding:14px;
+  border-radius:14px;
+  border:1px solid #ddd;
+  margin-bottom:16px;
+  font-size:16px;
+  outline:none;
+}
+
+.auth-btn{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  background:#4f46e5;
+  color:white;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+  margin-bottom:12px;
+}
+
+.auth-btn.secondary{
+  background:#111827;
+}
+
+.loading-screen{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:22px;
+  font-weight:700;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+  .app-container{
+    max-width:100%;
+  }
+
+  .auth-card{
+    padding:24px;
+    border-radius:20px;
+  }
+
+  .logo{
+    font-size:28px;
+  }
+
+}
+
 `;
 
 // ── store ─────────────────────────────────────────────────────────────────────
