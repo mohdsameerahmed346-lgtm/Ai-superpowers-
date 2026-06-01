@@ -571,8 +571,13 @@ if (!user) {
 }
   
   return (
-    <div style={{minHeight:"100vh",background:"#f7f7fc",paddingBottom:80}}>
+  <div className="app-shell">
+    <div className="app-container">
+
       <style>{CSS}</style>
+
+      <div style={{minHeight:"100vh",background:"#f7f7fc",paddingBottom:80}}>
+
       {tab==="home"&&(
         <>
           <div style={{background:"linear-gradient(160deg,#0f0c29,#302b63,#24243e)",padding:"32px 20px 24px",position:"relative",overflow:"hidden"}}>
@@ -656,5 +661,7 @@ if (!user) {
       </div>
       {paywall&&<Paywall onClose={()=>setPaywall(false)} onUpgrade={()=>{store.upgrade();setPaywall(false);}}/>}
     </div>
-  );
+    </div>
+  </div>
+);
 }
