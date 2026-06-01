@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { supabase } from './lib/supabase'
-import LoginButton from './components/LoginButton'
+import AuthScreen from './components/AuthScreen'
 
 const LESSONS = [
   { id:1, cat:"Creator", emoji:"🎬", title:"Viral YouTube Hooks", pro:false, xp:10,
@@ -511,19 +511,26 @@ export default function App(){
   const [catF,setCatF]=useState("All");
   const [paywall,setPaywall]=useState(false);
   const [showHist,setShowHist]=useState(false);
-  const [user,setUser]=useState(null);
-  useEffect(() => {
+  const [user, setUser] = useState(null)
+const [loading, setLoading] = useState(true)
+
+useEffect(() => {
+
   supabase.auth.getUser().then(({ data }) => {
     setUser(data.user)
+    setLoading(false)
   })
 
   const {
     data: { subscription },
-  } = supabase.auth.onAuthStateChange((_event, session) => {
-    setUser(session?.user ?? null)
-  })
+  } = supabase.auth.onAuthStateChange(
+    (_event, session) => {
+      setUser(session?.user ?? null)
+    }
+  )
 
   return () => subscription.unsubscribe()
+
 }, [])
   
   const dayIdx=new Date().getDate()%CHALLENGES.length;
@@ -551,6 +558,18 @@ export default function App(){
   const identity=getTitle(store.ud?.xp||0,fav);
   const IC=COLORS[fav]||COLORS.Creator;
 
+  if (loading) {
+  return (
+    <div className="loading-screen">
+      Loading...
+    </div>
+  )
+}
+
+if (!user) {
+  return <AuthScreen />
+}
+  
   return (
     <div style={{minHeight:"100vh",background:"#f7f7fc",paddingBottom:80}}>
       <style>{CSS}</style>
