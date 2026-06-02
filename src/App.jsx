@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { supabase } from './lib/supabase'
-import AuthScreen from './components/AuthScreen'
 
 const LESSONS = [
   { id:1, cat:"Creator", emoji:"🎬", title:"Viral YouTube Hooks", pro:false, xp:10,
