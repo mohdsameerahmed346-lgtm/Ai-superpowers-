@@ -382,13 +382,46 @@ function AuthScreen({onAuth}){
   const [email,setEmail]=useState("");
   const [loading,setLoading]=useState(false);
   const {signUp,signIn}=useStore();
-  const go=()=>{
-    if(!email.trim()) return;
-    setLoading(true);
-    const u=mode==="signup"?signUp(email,name||email.split("@")[0]):signIn(email);
-    onAuth(u);
-    setLoading(false);
-  };
+  const go = async () => {
+
+  if (!email.trim()) return;
+
+  setLoading(true);
+
+  if (mode === "signup") {
+
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: {
+        emailRedirectTo: window.location.origin
+      }
+    });
+
+    if (error) {
+      alert(error.message);
+    } else {
+      alert("Magic link sent to your email.");
+    }
+
+  } else {
+
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: {
+        emailRedirectTo: window.location.origin
+      }
+    });
+
+    if (error) {
+      alert(error.message);
+    } else {
+      alert("Login link sent to your email.");
+    }
+
+  }
+
+  setLoading(false);
+};
   return (
     <div style={{minHeight:"100vh",background:"linear-gradient(160deg,#0f0c29,#302b63,#24243e)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:24}}>
       <style>{CSS}</style>
