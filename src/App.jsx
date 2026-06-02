@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { supabase } from "./lib/supabase";
 
 // ─── SUPABASE CLIENT ──────────────────────────────────────────────────────────
 // Replace these with your actual Supabase project values
