@@ -692,22 +692,20 @@ const [loading, setLoading] = useState(true)
 
 useEffect(() => {
 
-  supabase.auth.getUser().then(({ data }) => {
-    setUser(data.user)
-    setLoading(false)
-  })
+  supabase.auth.getSession().then(({ data: { session } }) => {
+    setUser(session?.user ?? null);
+    setLoading(false);
+  });
 
   const {
     data: { subscription },
-  } = supabase.auth.onAuthStateChange(
-    (_event, session) => {
-      setUser(session?.user ?? null)
-    }
-  )
+  } = supabase.auth.onAuthStateChange((_event, session) => {
+    setUser(session?.user ?? null);
+  });
 
-  return () => subscription.unsubscribe()
+  return () => subscription.unsubscribe();
 
-}, [])
+}, []);
   
   const dayIdx=new Date().getDate()%CHALLENGES.length;
   const cLid=CHALLENGES[dayIdx];
