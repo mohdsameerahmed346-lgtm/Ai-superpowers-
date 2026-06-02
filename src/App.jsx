@@ -710,7 +710,7 @@ useEffect(() => {
 }
 
 if (!user) {
-  return <AuthScreen />
+  return <AuthScreen onAuth={() => {}} />
 }
   
   return (
