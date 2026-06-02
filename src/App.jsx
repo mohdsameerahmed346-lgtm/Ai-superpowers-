@@ -737,11 +737,11 @@ useEffect(() => {
     <div className="loading-screen">
       Loading...
     </div>
-  )
+  );
 }
 
 if (!user) {
-  return <AuthScreen onAuth={() => {}} />
+  return <AuthScreen />;
 }
   
   return (
