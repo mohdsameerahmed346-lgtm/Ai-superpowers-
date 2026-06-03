@@ -485,7 +485,7 @@ function LessonScreen(props) {
                 <div style={{ fontSize:12, color:"#9ca3af", marginTop:6 }}>{Math.max(0, 3 - (ud.dailyCount || 0))} free uses left today</div>
               )}
               <button
-                onClick={go}
+                onClick={generateAnswer}
                 disabled={!input.trim() || loading}
                 style={{ width:"100%", marginTop:12, background: input.trim() ? "linear-gradient(135deg,#6366f1,#8b5cf6)" : "#e5e7eb", color: input.trim() ? "#fff" : "#9ca3af", border:"none", borderRadius:12, padding:14, fontSize:15, fontWeight:700, cursor: input.trim() ? "pointer" : "not-allowed", transition:"all .2s" }}
               >
