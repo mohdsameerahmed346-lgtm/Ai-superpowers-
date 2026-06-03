@@ -294,20 +294,33 @@ function AuthScreen(props) {
 
     setBusy(true);
 
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-    });
+    let result;
 
-    if (error) {
-      alert(error.message);
+    if (mode === "signup") {
+      result = await supabase.auth.signUp({
+        email,
+        password: password,
+        options: {
+          data: {
+            name: name || "User"
+          }
+        }
+      });
+    } else {
+      result = await supabase.auth.signInWithPassword({
+        email,
+        password: password
+      });
+    }
+
+    if (result.error) {
+      alert(result.error.message);
       return;
     }
 
-    alert("Check your email for login link");
-
   } catch (err) {
     console.error(err);
-    alert("Something went wrong");
+    alert("Authentication failed");
   } finally {
     setBusy(false);
   }
