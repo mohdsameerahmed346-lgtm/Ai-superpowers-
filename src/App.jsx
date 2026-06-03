@@ -287,17 +287,31 @@ function AuthScreen(props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [busy, setBusy] = useState(false);
-  const store = useStore();
 
   async function go() {
+  try {
     if (!email.trim()) return;
+
     setBusy(true);
-    const u = mode === "signup"
-      ? await store.signUp(email, name || email.split("@")[0])
-      : await store.signIn(email);
-    props.onAuth(u);
+
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+    });
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+    alert("Check your email for login link");
+
+  } catch (err) {
+    console.error(err);
+    alert("Something went wrong");
+  } finally {
     setBusy(false);
   }
+}
 
   const inputStyle = { width:"100%", background:"rgba(255,255,255,.08)", border:"1px solid rgba(255,255,255,.1)", borderRadius:12, padding:"14px 16px", color:"#fff", fontSize:15, outline:"none", marginBottom:12 };
 
