@@ -668,6 +668,35 @@ export default function App() {
   const [showHist, setShowHist] = useState(false);
   const [authDone, setAuthDone] = useState(false);
 
+  const generateAnswer = async () => {
+  try {
+    setLoading(true);
+
+    const response = await fetch("/api/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        prompt: input,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error);
+    }
+
+    setAnswer(data.answer);
+
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  } finally {
+    setLoading(false);
+  }
+};
   const dayIdx = new Date().getDate() % CHALLENGES.length;
   const cLid = CHALLENGES[dayIdx];
   const cLesson = LESSONS.filter(function(l) { return l.id === cLid; })[0];
