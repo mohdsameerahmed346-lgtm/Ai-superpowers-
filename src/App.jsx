@@ -491,6 +491,19 @@ function LessonScreen(props) {
               >
                 {loading ? "Generating..." : "Generate Now ✦"}
               </button>
+              {answer && (
+                <div style={{
+                  marginTop:16,
+                  background:"#fff",
+                  padding:16,
+                  borderRadius:14,
+                  border:"1px solid #e5e7eb",
+                  color:"#111827",
+                 whiteSpace:"pre-wrap"
+               }}>
+                 {answer}
+               </div>
+             )}
             </div>
 
             {/* Result */}
