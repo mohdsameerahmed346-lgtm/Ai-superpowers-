@@ -1,24 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { supabase } from "./lib/supabase";
 
-// ─── SUPABASE CLIENT ──────────────────────────────────────────────────────────
-// Replace these with your actual Supabase project values
-const SUPABASE_URL = "https://YOUR_PROJECT.supabase.co";
-const SUPABASE_ANON_KEY = "YOUR_ANON_KEY";
-
-async function sbFetch(path, options = {}) {
-  const res = await fetch(SUPABASE_URL + path, {
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      "apikey": SUPABASE_ANON_KEY,
-      "Authorization": "Bearer " + SUPABASE_ANON_KEY,
-      ...(options.headers || {}),
-    },
-  });
-  return res.json();
-}
-
 // ─── LESSONS ─────────────────────────────────────────────────────────────────
 const LESSONS = [
   { id:1,  cat:"Creator",       emoji:"🎬", title:"Viral YouTube Hooks",      pro:false, xp:10, insight:"Strong hooks create curiosity in the first 3 seconds.", lbl:"Enter your topic", ph:"e.g. Fitness for students", preview:["Generate 10 viral hooks for [TOPIC].","Use: curiosity · emotion · punchy language"], sys:"You are a viral YouTube strategist. Generate exactly 10 high-CTR YouTube hooks. Each hook must be under 12 words. Use curiosity, emotion, strong opening words. Format: bullet list, one hook per line starting with a bullet symbol. No numbering, no explanations.", p:"Generate 10 viral YouTube hooks about: " },
