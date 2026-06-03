@@ -285,6 +285,7 @@ function ResultCard(props) {
 function AuthScreen(props) {
   const [mode, setMode] = useState("signup");
   const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [busy, setBusy] = useState(false);
 
