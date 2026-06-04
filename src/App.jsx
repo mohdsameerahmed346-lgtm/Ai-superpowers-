@@ -438,6 +438,7 @@ function LessonScreen(props) {
   const lesson = props.lesson;
   const ud = props.ud;
   const [input, setInput] = useState("");
+  const [answer, setAnswer] = useState("");
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -447,6 +448,36 @@ function LessonScreen(props) {
   const today = new Date().toDateString();
   const cDone = ud && ud.doneDays && ud.doneDays.indexOf(today) > -1;
 
+  async function generateAnswer() {
+  try {
+    setLoading(true);
+
+    const response = await fetch("/api/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        prompt: input,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "Something went wrong");
+    }
+
+    setAnswer(data.answer);
+
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  } finally {
+    setLoading(false);
+  }
+    }
+  
   function pop(msg) {
     setToast({ msg:msg, vis:true });
     setTimeout(function() { setToast({ msg:"", vis:false }); }, 2500);
