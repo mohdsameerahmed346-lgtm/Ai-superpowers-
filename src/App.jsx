@@ -745,10 +745,8 @@ function ProfileScreen(props) {
         <div style={{ background:"#f8f9fc", borderRadius:14, border:"1.5px solid #e8e8f0", padding:16, marginBottom:20 }}>
           <div style={{ fontSize:11, fontWeight:700, color:"#9ca3af", letterSpacing:1, marginBottom:6, textTransform:"uppercase" }}>🔧 Supabase Status</div>
           <div style={{ fontSize:12, color:"#6b7280", lineHeight:1.7 }}>
-            {SUPABASE_URL.includes("YOUR_PROJECT")
-              ? "Not connected — data is in memory only. Add your Supabase URL and anon key in App.jsx to persist across sessions."
-              : "Connected — user data, XP, streaks and saved outputs sync across all devices."}
-          </div>
+              Supabase connected — user data, XP, streaks and saved outputs sync across devices.
+         </div>
         </div>
 
         <button onClick={props.onSignOut} style={{ width:"100%", background:"#fff", border:"1.5px solid #fee2e2", borderRadius:14, padding:16, color:"#ef4444", fontWeight:600, fontSize:15, cursor:"pointer" }}>Sign Out</button>
