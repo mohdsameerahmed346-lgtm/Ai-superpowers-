@@ -330,7 +330,11 @@ async function go() {
         ? "Account created successfully"
         : "Login successful"
     );
-
+    
+    if (result.data.user) {
+  props.onAuth(result.data.user);
+}
+    
   } catch (err) {
     console.error(err);
     alert("Authentication failed");
