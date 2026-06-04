@@ -352,6 +352,18 @@ function AuthScreen(props) {
             <input value={name} onChange={function(e) { setName(e.target.value); }} placeholder="Your name" style={inputStyle} />
           )}
           <input value={email} onChange={function(e) { setEmail(e.target.value); }} placeholder="Email address" type="email" onKeyDown={function(e) { if (e.key === "Enter") go(); }} style={Object.assign({}, inputStyle, { marginBottom:20 })} />
+          <input
+            value={password}
+            onChange={function(e) {
+              setPassword(e.target.value);
+            }}
+            placeholder="Password"
+            type="password"
+            onKeyDown={function(e) {
+              if (e.key === "Enter") go();
+            }}
+            style={Object.assign({}, inputStyle, { marginBottom:20 })}
+          />
           <button onClick={go} disabled={busy || !email.trim()} style={{ width:"100%", background: email.trim() ? "linear-gradient(135deg,#6366f1,#8b5cf6)" : "#444", border:"none", borderRadius:12, padding:16, color:"#fff", fontSize:16, fontWeight:700, cursor: email.trim() ? "pointer" : "not-allowed", animation:"glow 3s ease infinite" }}>
             {busy ? "Loading..." : mode === "signup" ? "Create Free Account →" : "Sign In →"}
           </button>
