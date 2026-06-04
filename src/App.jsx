@@ -736,6 +736,8 @@ export default function App() {
   const [paywall, setPaywall] = useState(false);
   const [showHist, setShowHist] = useState(false);
   const [authDone, setAuthDone] = useState(false);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const generateAnswer = async () => {
   try {
