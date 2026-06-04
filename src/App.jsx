@@ -769,6 +769,24 @@ export default function App() {
   }
 };
   const dayIdx = new Date().getDate() % CHALLENGES.length;
+  useEffect(() => {
+
+  supabase.auth.getUser().then(({ data }) => {
+    setUser(data.user || null);
+    setLoading(false);
+  });
+
+  const {
+    data: { subscription },
+  } = supabase.auth.onAuthStateChange((_event, session) => {
+    setUser(session?.user || null);
+  });
+
+  return () => {
+    subscription.unsubscribe();
+  };
+
+}, []);
   const cLid = CHALLENGES[dayIdx];
   const cLesson = LESSONS.filter(function(l) { return l.id === cLid; })[0];
   const today = new Date().toDateString();
