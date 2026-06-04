@@ -803,7 +803,17 @@ export default function App() {
     if (l) { setLesson(l); setIsChallenge(false); setShowHist(false); }
   }
 
-  if (!store.user) return <AuthScreen onAuth={handleAuth} />;
+  if (loading) {
+  return (
+    <div className="loading-screen">
+      Loading...
+    </div>
+  );
+}
+
+if (!user) {
+  return <AuthScreen onAuth={setUser} />;
+}
   if (showHist) return <HistoryScreen hist={store.hist} onBack={function() { setShowHist(false); }} onReuse={reuse} delOut={store.delOut} />;
   if (lesson) return (
     <>
