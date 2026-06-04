@@ -289,17 +289,18 @@ function AuthScreen(props) {
   const [email, setEmail] = useState("");
   const [busy, setBusy] = useState(false);
 
-  async function go() {
+async function go() {
   try {
-    if (!email.trim()) return;
+    if (!email.trim() || !password.trim()) return;
 
     setBusy(true);
 
     let result;
 
     if (mode === "signup") {
+
       result = await supabase.auth.signUp({
-        email,
+        email: email,
         password: password,
         options: {
           data: {
@@ -307,17 +308,28 @@ function AuthScreen(props) {
           }
         }
       });
+
     } else {
+
       result = await supabase.auth.signInWithPassword({
-        email,
+        email: email,
         password: password
       });
+
     }
+
+    console.log(result);
 
     if (result.error) {
       alert(result.error.message);
       return;
     }
+
+    alert(
+      mode === "signup"
+        ? "Account created successfully"
+        : "Login successful"
+    );
 
   } catch (err) {
     console.error(err);
